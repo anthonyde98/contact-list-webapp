@@ -1,0 +1,31 @@
+<section class="details section nunito">
+    <div class="detail-title card">
+        <p>Información de contacto</p>
+    </div>
+    <div class="info-contacto">
+        <div class="nombre card info">
+            <p class="title">Nombre</p>
+            <p class="text">{{contacto.nombre}}</p>
+        </div>
+        <div class="relacion card info">
+            <p class="title">Relación</p>
+            <p class="text">{{contacto.relacion}}</p>
+        </div>
+        <div class="descripcion card info">
+            <p class="title">Descripción</p>
+            <p class="text">{{contacto.descripcion}}</p>
+        </div>
+        <div class="numeros card info">
+            <p class="title">Números</p>
+            <p class="text" *ngFor="let numero of contacto.numeros" (click)="llamar(numero)">{{numero}}</p>
+        </div>
+        <div class="correo card info">
+            <p class="title">Correo</p>
+            <p class="text" (click)="enviarCorreo(contacto.correo)">{{contacto.correo}}</p>
+        </div>
+        <div class="color card info">
+            <p class="title">Color</p>
+            <div [style.backgroundColor]="contacto.color"></div>
+        </div>
+    </div>
+</section>

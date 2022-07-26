@@ -1,0 +1,49 @@
+.contacto{
+    padding: 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    color: rgb(0, 0, 0);
+}
+
+.title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.numero, .relacion{
+    height: 30px;
+    font-size: 17px;
+}
+p{
+    height: fit-content;
+    width: auto;
+}
+
+.fad, .fas{
+    background-color: rgba(240, 248, 255, 0.508);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    border-radius: 10px;
+    height: 28px;
+    width: 31px;
+    text-align: center;
+}
+
+.btns-opcion{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+}
+
+.btns-opcion .fa-phone-alt{
+    color: rgb(40, 173, 40);
+}
+.btns-opcion .fa-user{
+    color: rgb(39, 108, 186);
+}
+.btns-opcion .fa-pen{
+    color: rgb(195, 137, 3);
+}
+.btns-opcion .fa-trash-alt{
+    color: rgb(201, 52, 38);
+}

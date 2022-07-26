@@ -1,0 +1,19 @@
+<div class="contacto card" #card [ngStyle]="{'background-color': contacto.color}" >
+    <div class="title">
+        <p>{{contacto.nombre}}</p>
+    </div>
+    <div class="body">
+        <div class="relacion">
+            <p><i class="fad fa-user-friends"></i> {{contacto.relacion}}</p>
+        </div>
+        <div class="numero">
+            <p><i class="fas fa-phone-alt"></i> {{contacto.numeros[0] | phoneformat}}</p>
+        </div>
+    </div>
+    <div *ngIf="clicked" class="btns-opcion">
+        <i id="llamar" class="fas fa-phone-alt"></i>
+        <i id="detalle" class="fad fa-user"></i>
+        <i id="editar" class="fad fa-pen"></i>
+        <i id="borrar" class="fad fa-trash-alt"></i>
+    </div>
+</div>

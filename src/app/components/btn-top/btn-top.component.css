@@ -1,0 +1,41 @@
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    transition: all .2s ease-in-out;
+}
+
+.scroll-to-top button{
+    height: 45px;
+    width: 45px;
+    border: 0.5px solid white;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.44);
+    background-color: #fffffffb;
+    font-size: 25px;
+    padding-bottom: 3px;
+}
+
+.show-scrollTop {
+    animation: bounceInUp 1s;
+    display: block;
+    transition: all .2s ease-in-out;
+}
+
+@keyframes bounceInUp {
+    0% {
+       opacity: 0;
+       transform: translateY(2000px);
+    }
+    60% {
+       opacity: 1;
+       transform: translateY(-30px);
+    }
+    80% {
+       transform: translateY(10px);
+    }
+    100% {
+       transform: translateY(0);
+    }
+}

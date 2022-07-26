@@ -1,0 +1,31 @@
+.buscador{
+    width: 250px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.902);
+}
+
+.form-control{
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.radio-list{
+    margin: 0 auto;
+}
+
+.form-check{
+    display: inline-block;
+}
+
+.check-container{
+    display: inline;
+    background-color: rgb(255, 255, 255);
+    width: 55px;
+    margin: 0 5px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
