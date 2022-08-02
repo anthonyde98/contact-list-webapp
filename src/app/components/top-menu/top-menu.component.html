@@ -1,13 +1,13 @@
-<div class="menu-container nunito">
+<div *ngIf="show" class="menu-container nunito">
     <div class="content">
         <div class="logo">
             <img src="../../../assets/img/icon.png" alt="logo de la aplicación">
             <span>Lista de contactos</span>
         </div>
         <div class="btns">
-            <i *ngIf="ruta[0] !== 'list'" [routerLink]="['list']" title="Ir a lista de contactos" class="fad fa-arrow-left"></i> <!-- No esta en list -->
-            <i *ngIf="ruta[0] !== 'set-contact'" [routerLink]="['set-contact', '']" title="Agregar contacto" class="fad fa-plus"></i>       <!-- No esta en set-contacto cuando es agregar -->
-            <i *ngIf="ruta[0] === 'list'" (click)="activarBuscador()" title="Mostrar buscador" class="fad fa-search"></i>     <!-- Esta en list solamente -->
+            <i *ngIf="ruta !== 'list'" [routerLink]="['list']" title="Ir a lista de contactos" class="fad fa-arrow-left"></i> <!-- No esta en list -->
+            <i *ngIf="ruta !== 'set-contact'" [routerLink]="['set-contact', '']" title="Agregar contacto" class="fad fa-plus"></i>       <!-- No esta en set-contacto cuando es agregar -->
+            <i *ngIf="ruta === 'list'" (click)="activarBuscador()" title="Mostrar buscador" class="fad fa-search"></i>     <!-- Esta en list solamente -->
             <i (click)="cerrarSesion()" title="Cerrar sesión" class="fad fa-sign-out"></i>   <!-- Esta en todos -->
         </div>
     </div>

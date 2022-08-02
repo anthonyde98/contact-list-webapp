@@ -6,7 +6,7 @@
                 <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" [style.color]="estiloInput('relacion')"><i class="fad fa-user-friends"></i></span>
+                <span class="input-group-text" style="color: green"><i class="fad fa-user-friends"></i></span>
                 <select class="form-select" formControlName="relacion">
                     <option *ngFor="let tipo of relacion" [value]="tipo.nombre">{{tipo.nombre}}</option>
                   </select>
@@ -43,7 +43,7 @@
                   </div>
                 </div>
             </div>
-            <input [disabled]="contactForm.invalid" type="submit" class="btn btn-light" value="Agregar">
+            <input [disabled]="contactForm.invalid" type="submit" class="btn btn-light" [value]="accion">
         </form>
     </div>
 </div>

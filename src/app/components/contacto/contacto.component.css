@@ -9,9 +9,15 @@
     font-weight: bold;
 }
 
-.numero, .relacion{
+
+.relacion{
     height: 30px;
     font-size: 17px;
+}
+.numero{
+    height: fit-content;
+    font-size: 17px;
+    margin-bottom: -10px;
 }
 p{
     height: fit-content;
@@ -35,6 +41,10 @@ p{
     justify-content:space-evenly;
 }
 
+.btns-opcion .fad, .btns-opcion .fas{
+    cursor: pointer;
+}
+
 .btns-opcion .fa-phone-alt{
     color: rgb(40, 173, 40);
 }
@@ -47,3 +57,4 @@ p{
 .btns-opcion .fa-trash-alt{
     color: rgb(201, 52, 38);
 }
+

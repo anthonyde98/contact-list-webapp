@@ -1,34 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Contacto } from 'src/app/interfaces/icontacto';
 import { ContactoService } from 'src/app/services/contacto.service';
+import { ToastrService } from 'ngx-toastr';
+import { AppService } from 'src/app/services/app.service';
 
-@Component({
+@Component({ 
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
   contacto!: Contacto;
-  id: string | null = "";
-  constructor(private rutaActiva: ActivatedRoute, private ContacService: ContactoService) {
-    this.contacto = {
-      nombre: "",
-      relacion: "",
-      numeros: [""],
-      color: "",
-      descripcion: "",
-      correo: ""
-    }
-   }
+  id: string = "";
+  private numeroEnfocado: number | null = null;
+  constructor(private rutaActiva: ActivatedRoute, private ContactoService: ContactoService, private toast: ToastrService, private router: Router, private appService: AppService) {}
 
-  ngOnInit(): void {
-    this.id = this.rutaActiva.snapshot.paramMap.get('id');
-    this.getContacto()
+  async ngOnInit(): Promise<void> {
+    this.appService.topMenu.emit('details');
+    this.id = this.rutaActiva.snapshot.paramMap.get('id') || "";
+    await this.getContacto()
   }
 
-  getContacto(){
-    this.contacto = this.ContacService.getContacto(this.id) || this.contacto;
+  async getContacto(){
+    let contacto: any = await this.ContactoService.obtenerContacto(this.id);
+    if(!contacto){
+      setTimeout(() => {
+        this.toast.error("No se encontró este contacto.", "Contacto");
+      }, 1000);
+      this.router.navigateByUrl("list");
+    }
+    else{
+      this.contacto = contacto;
+    }
   }
 
   llamar(numero: string){
@@ -37,5 +41,16 @@ export class DetailsComponent implements OnInit {
 
   enviarCorreo(correo: string){
     window.open(`mailTo:${correo}`);
+  }
+
+  manejoDeNumeros(i: number){
+    if(this.numeroEnfocado === i){
+      document.getElementById(i.toString())!.style.display = "none";
+      this.numeroEnfocado = null;
+    }
+    else{
+      document.getElementById(i.toString())!.style.display = "block"
+      this.numeroEnfocado = i;
+    }
   }
 }

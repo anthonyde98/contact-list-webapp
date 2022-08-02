@@ -6,6 +6,7 @@ import { ListComponent } from './list.component';
 import { ContactoComponent } from 'src/app/components/contacto/contacto.component';
 import { BuscadorComponent } from 'src/app/components/buscador/buscador.component';
 import { PhoneformatModule } from 'src/app/pipes/phoneformat/phoneformat.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PhoneformatModule } from 'src/app/pipes/phoneformat/phoneformat.module'
   imports: [
     CommonModule,
     ListRoutingModule,
-    PhoneformatModule
+    PhoneformatModule,
+    FormsModule
   ]
 })
 export class ListModule { }

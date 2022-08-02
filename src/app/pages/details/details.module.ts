@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { DetailsRoutingModule } from './details-routing.module';
 import { DetailsComponent } from './details.component';
+import { PhoneformatModule } from 'src/app/pipes/phoneformat/phoneformat.module';
+
 
 
 @NgModule({
@@ -11,7 +13,8 @@ import { DetailsComponent } from './details.component';
   ],
   imports: [
     CommonModule,
-    DetailsRoutingModule
+    DetailsRoutingModule,
+    PhoneformatModule
   ]
 })
 export class DetailsModule { }

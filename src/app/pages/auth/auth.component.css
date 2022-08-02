@@ -9,6 +9,8 @@
 }
 
 .spinner-border{
+    display: block;
+    margin: 0 auto;
     margin-top: -30px;
     height: 200px;
     width: 200px;
@@ -35,6 +37,10 @@
 .logo img{
     height: 50px;
     width: 50px;
+}
+
+.auth-container{
+    padding-bottom: 50px;
 }
 
 .qr-container{
@@ -71,39 +77,66 @@
     text-align: justify;
 }
 
+.info-container-out{
+    display: none;
+    box-shadow: 0 4px 5px 2px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    margin: 20px;
+    text-align: justify;
+}
+
+
 @media (max-width: 900px) {
     .info-container{
         font-size: 20px;
     }
 }
 
-@media (max-width: 690px) {
+@media (max-width: 740px) {
     .info-container{
-        font-size: 15px;
+        display: none;
+    }
+    .card-body{
+        align-items: center;
+        justify-content: center;
+    }
+    .info-container-out{
+        display: block;
+    }
+    .qr-container{
+        padding: 20px 30px;
+    }
+    .qr{
+        margin-right: 0;
     }
 }
 
-@media (max-width: 600px) {
-    .auth-container{
-        padding: 40px 30px
+@media (max-width: 607px) {
+    .qr-container{
+        padding: 10px 10px
     }
-    .info-container{
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .info-container{
-        font-size: 10px;
+    .qr{
+        margin-right: 0;
+        padding: 0;
+        padding-top: 0;
     }
 }
 
 @media (max-width: 410px) {
-    .auth-container{
-        padding: 20px 10px;
-        margin: auto 20px;
+    .info-container-out{
+        margin: 20px auto;
+        font-size: 12px;
+        width: 200px;
     }
-    .info-container{
-        font-size: 7px;
+
+    .qr-container h1{
+        font-size: 22px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 380px) {
+    .qr-container{
+        padding: 5px
     }
 }

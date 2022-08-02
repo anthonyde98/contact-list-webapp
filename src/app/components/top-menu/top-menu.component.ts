@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { AppService } from 'src/app/services/app.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-top-menu',
@@ -9,8 +11,10 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class TopMenuComponent implements OnInit {
   buscador: boolean = false;
-  ruta: string[] = [];
-  constructor(private router: Router, private appService: AppService) { }
+  ruta: string = "";
+  show = false;
+  
+  constructor(private router: Router, private appService: AppService, private usuarioService: UsuarioService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.eventsOrSubcribers();
@@ -24,15 +28,24 @@ export class TopMenuComponent implements OnInit {
   }
 
   cerrarSesion(){
-    
+    const deviceData = this.appService.getDeviceData();
+    const token = this.appService.getTokenGroup();
+    this.usuarioService.cerrarSesion(deviceData, token || "").then(() => {
+      this.authService.cerrarSesion();
+    });
   }
 
   eventsOrSubcribers(){
-    this.router.events.subscribe((event) => {
-      if(event instanceof NavigationStart) {
-        this.ruta = event.url.replace("/", "").split("/");
+    this.appService.topMenu.subscribe(data => {
+      this.ruta = data;
+      
+      if(this.ruta === 'auth')
+        this.show = false;
+      else{
+        this.show = true;
       }
-    });
+    })
+    
     this.appService.buscador.subscribe(data => {
       this.buscador = data;
     })

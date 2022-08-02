@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppService } from 'src/app/services/app.service';
+import { ToastrService } from 'ngx-toastr';
+import { ContactoService } from 'src/app/services/contacto.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-contacto',
@@ -12,7 +14,7 @@ export class ContactoComponent implements OnInit {
   @Input() clicked: boolean = false;
   @ViewChild('card') card!: ElementRef;
 
-  constructor(private renderer: Renderer2, private appServe: AppService, private router: Router) { }
+  constructor(private renderer: Renderer2, private router: Router, private contactoService: ContactoService, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -33,11 +35,24 @@ export class ContactoComponent implements OnInit {
       this.router.navigateByUrl(`set-contact/${this.contacto.id}`);
     }
     else if($event.target.id === "borrar"){
-      // this.eliminarContacto(this.contacto.id).then(() => {
-      //   // haz algo
-      // }).catch(() => {
-      //   // captura el error
-      // });
+      this.contactoService.actualizarContacto({status: false}, this.contacto.id).then(() => {
+        this.toast.info("Un contacto ha sido eliminado. Para revertir esta decisión, de click a este mensaje.", "Contacto")
+        .onTap
+        .pipe(take(1))
+        .subscribe(() => this.recuperarContactoEliminado());
+      }).catch(error => {
+        this.toast.error("Hubo un error al eliminar el contacto.", "Contacto");
+        console.log(error);
+      });
     }
+  }
+
+  private recuperarContactoEliminado(){
+    this.contactoService.actualizarContacto({status: true}, this.contacto.id).then(() =>{
+      this.toast.success("Contacto recuperado.", "Contacto")
+    }).catch(error => {
+      this.toast.error("Hubo un error al recueprar el contacto.", "Contacto");
+      console.log(error);
+    });
   }
 }

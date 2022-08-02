@@ -2,7 +2,7 @@
     <div class="detail-title card">
         <p>Información de contacto</p>
     </div>
-    <div class="info-contacto">
+    <div *ngIf="contacto" class="info-contacto">
         <div class="nombre card info">
             <p class="title">Nombre</p>
             <p class="text">{{contacto.nombre}}</p>
@@ -17,11 +17,17 @@
         </div>
         <div class="numeros card info">
             <p class="title">Números</p>
-            <p class="text" *ngFor="let numero of contacto.numeros" (click)="llamar(numero)">{{numero}}</p>
+            <div class="numero-container" *ngFor="let numero of contacto.numeros; let i = index;" (mouseenter)="manejoDeNumeros(i)" (mouseleave)="manejoDeNumeros(i)">
+                <span>{{numero.numero | phoneformat}}</span> 
+                <i [id]="i" (click)="llamar(numero.numero)" class="fas fa-phone-alt"></i>
+            </div>
         </div>
         <div class="correo card info">
             <p class="title">Correo</p>
-            <p class="text" (click)="enviarCorreo(contacto.correo)">{{contacto.correo}}</p>
+            <div class="correo-container">
+                <span>{{contacto.correo}}</span> 
+                <i (click)="enviarCorreo(contacto.correo)" class="fad fa-envelope"></i>
+            </div>
         </div>
         <div class="color card info">
             <p class="title">Color</p>

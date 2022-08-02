@@ -1,23 +1,23 @@
 <div class="buscador card">
-    <input type="text" class="form-control" placeholder="¿Buscas un contacto?">
+    <input type="text" class="form-control" placeholder="¿Buscas un contacto?" [(ngModel)]="filtro" (keyup)="busqueda()">
     <div class="radio-list">
         <div name="radio-group" class="radio-group">
           <div class="check-container">
             <div class="form-check">
                 <label class="form-check-label" for="nombre"><i class="fad fa-address-card"></i></label>
-                <input class="form-check-input" type="radio" name="filtro">
+                <input class="form-check-input" type="radio" name="filtro" value="nombre" (click)="selectRadio('nombre')" checked>
               </div>
           </div>
           <div class="check-container">
             <div class="form-check">
                 <label class="form-check-label" for="relacion"><i class="fad fa-user-friends"></i></label>
-                <input class="form-check-input" type="radio" name="filtro">
+                <input class="form-check-input" type="radio" name="filtro" value='relacion' (click)="selectRadio('relacion')">
               </div>
           </div>
           <div class="check-container">
             <div class="form-check">
                 <label class="form-check-label" for="numeros"><i class="fas fa-phone-alt"></i></label>
-                <input class="form-check-input" type="radio" name="filtro">
+                <input class="form-check-input" type="radio" name="filtro" value='numeros' (click)="selectRadio('numeros')">
               </div>
           </div>
         </div>

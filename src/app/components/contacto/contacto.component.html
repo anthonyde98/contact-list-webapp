@@ -7,7 +7,7 @@
             <p><i class="fad fa-user-friends"></i> {{contacto.relacion}}</p>
         </div>
         <div class="numero">
-            <p><i class="fas fa-phone-alt"></i> {{contacto.numeros[0] | phoneformat}}</p>
+            <p><i class="fas fa-phone-alt"></i> {{contacto.numeros[0].numero | phoneformat}}</p>
         </div>
     </div>
     <div *ngIf="clicked" class="btns-opcion">

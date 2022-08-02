@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { COLORS, INFO } from 'src/app/constants/global.constants';
 import { Contacto } from 'src/app/interfaces/icontacto';
+import { ContactoService } from 'src/app/services/contacto.service';
 
 @Component({
   selector: 'app-formulario',
@@ -12,6 +15,7 @@ export class FormularioComponent implements OnInit {
   private colors = COLORS;
   private info = INFO;
   @Input() contacto!: Contacto;
+  accion = "Agregar";
   colores = [
     this.colors.grey.light, this.colors.red.dark, this.colors.orange, 
     this.colors.blue.light, this.colors.green.light, this.colors.yellow, 
@@ -27,7 +31,7 @@ export class FormularioComponent implements OnInit {
   ];
   contactForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private contactoService: ContactoService, private toast: ToastrService, private router: Router) {
     this.contactForm = this.fb.group({
       nombre: ["", [Validators.required]],
       descripcion: ["", [Validators.required]],
@@ -39,8 +43,13 @@ export class FormularioComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    if(this.contacto)
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes['contacto'].currentValue){
       this.editForm();
+      this.accion = "Editar";
+    }
   }
 
   private editForm(){
@@ -49,12 +58,10 @@ export class FormularioComponent implements OnInit {
       this.agregarInputTelefono();
     }
 
-    for(let i = 0; i < this.contacto.numeros.length; i++)
-      this.contactFormGroups.controls[i].get('numero')?.patchValue(this.contacto.numeros[i])
-
     this.contactForm.patchValue({
       nombre: this.contacto.nombre,
       descripcion: this.contacto.descripcion,
+      numeros: this.contacto.numeros,
       correo: this.contacto.correo,
       color: this.contacto.color,
       relacion: this.contacto.relacion
@@ -62,22 +69,51 @@ export class FormularioComponent implements OnInit {
   }
 
   setContacto(){
-    let contacto = this.contactForm.value;
-    console.log(contacto);
+    let contacto: Contacto = this.contactForm.value;
+    
+    if(this.contacto){
+      this.saveEditedData(contacto);
+    }
+    else{
+      this.saveContactData(contacto);
+    }
+  }
+
+  private saveContactData(data: Contacto){
+    this.contactoService.agregarContacto(data).then(() => {
+      this.toast.success("Contacto agregado.", "Contacto");
+      this.resetForm();
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }).catch(error => {
+      this.toast.error("Hubo un error al agregar el contacto.", "Contacto");
+    })
+  } 
+
+  private saveEditedData(data: Contacto){
+    this.contactoService.actualizarContacto(data, this.contacto.id || "").then(() => {
+      this.toast.success("Contacto editado.", "Contacto");
+      this.router.navigateByUrl("list");
+    }).catch(error => {
+      this.toast.error("Hubo un error al editar el contacto.", "Contacto");
+    })
+  }
+
+  private resetForm(){
+    this.contactForm.reset();
+    this.contactForm.get("relacion")?.setValue(this.relacion[0].nombre);
+    this.contactFormGroups.clear();
+    this.agregarInputTelefono();
   }
 
   get contactFormGroups() {
     return this.contactForm.get("numeros") as FormArray
   }
 
-  crearInputTelefono(): FormGroup{
+  private crearInputTelefono(): FormGroup{
     return new FormGroup({
       numero: new FormControl("", [Validators.pattern(/[8][0|2|4][9][0-9]{7}$/), Validators.required])
     })
-  }
-
-  getFormArray(): FormArray{
-    return this.contactForm.get('numeros') as FormArray;
   }
 
   agregarInputTelefono(){
@@ -107,5 +143,4 @@ export class FormularioComponent implements OnInit {
     
     return resp;
   }
-
 }

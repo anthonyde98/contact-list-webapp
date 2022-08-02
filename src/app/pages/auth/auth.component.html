@@ -1,8 +1,8 @@
 <section class="auth nunito section">
     <div class="loading-container" *ngIf="loading">
         <div class="content">
-            <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
-            <h1 class="loading">Cargando...</h1>
+            <div class="spinner-border" role="status" aria-hidden="true"></div>
+            <h1 class="loading">Autentificando...</h1>
         </div>
     </div>
     <div class="auth-container" *ngIf="!loading">
@@ -29,6 +29,12 @@
                     </p>
                 </div>
             </div>
+        </div>
+        <div class="info-container-out card">
+            <p class="text">
+                Para poder tener acceso a los contactos que estan en su aplicación movil,
+                es necesario que escanee este código QR.
+            </p>
         </div>
     </div>
 </section>

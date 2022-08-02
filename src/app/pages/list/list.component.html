@@ -1,13 +1,27 @@
 <section class="list section">
     <div class="content">
-        <div *ngIf="buscador" class="buscador">
-            <app-buscador></app-buscador>
+        <div *ngIf="loading" class="loading">
+            <div class="loadingio-spinner-ellipsis-a7nypmcn3of">
+                <div class="ldio-iyss5lzchg9">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <p class="nunito">Cargando contactos...</p>
         </div>
-        <div *ngIf="!contactos || contactos.length === 0" class="no-contactos">
-            <p>No hay contactos para mostrar.</p>
-        </div>
-        <div class="contactos">
-            <app-contacto class="contacto" [clicked]="clicked === i" [contacto]="contacto" *ngFor="let contacto of contactos; let i = index" (click)="setActualContactClicked(i)"></app-contacto>
+        <div *ngIf="!loading" class="list-body">
+            <div *ngIf="buscador" class="buscador">
+                <app-buscador (dataFiltrada)="getContactos($event)"></app-buscador>
+            </div>
+            <div *ngIf="noContactos" class="no-contactos">
+                <p>No hay contactos para mostrar.</p>
+            </div>
+            <div class="contactos">
+                <app-contacto class="contacto" [clicked]="clicked === i" [contacto]="contacto" *ngFor="let contacto of contactos | async ; let i = index" (click)="setActualContactClicked(i)"></app-contacto>
+            </div>
         </div>
     </div>
 </section>
