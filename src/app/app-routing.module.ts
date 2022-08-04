@@ -16,11 +16,13 @@ const routes: Routes = [
   },
   {
     path: 'details/:id',
-    loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsModule)
+    loadChildren: () => import('./pages/details/details.module').then(m => m.DetailsModule),
+    canActivate: [AccessToAppGuard]
   },
   {
     path: 'set-contact/:id',
-    loadChildren: () => import('./pages/set-contacto/set-contacto.module').then(m => m.SetContactoModule)
+    loadChildren: () => import('./pages/set-contacto/set-contacto.module').then(m => m.SetContactoModule),
+    canActivate: [AccessToAppGuard]
   },
   {
     path: 'auth',
